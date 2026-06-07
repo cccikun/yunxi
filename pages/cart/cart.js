@@ -49,32 +49,35 @@ Page({
 
   changeQty(e) {
     const { id, delta } = e.currentTarget.dataset;
-    let removed = false;
 
-    const cart = this.data.cart.reduce((arr, item) => {
-      if (item.productId === id) {
-        const newQty = item.qty + delta;
-        // 数量为0时移除商品
-        if (newQty <= 0) {
-          removed = true;
-          return arr;
-        }
-        const qty = Math.min(newQty, item.stock);
-        arr.push({ ...item, qty });
-      } else {
-        arr.push(item);
-      }
-      return arr;
-    }, []);
+    // 先在原数组上找到目标，修改数量
+    const cart = this.data.cart;
+    const targetIdx = cart.findIndex(item => item.productId === id);
+    if (targetIdx === -1) return;
 
-    this.setData({ cart });
+    const target = cart[targetIdx];
+    const newQty = target.qty + delta;
+
+    // 数量归零：直接从数组中 splice 掉，再用 setData 全量刷新
+    if (newQty <= 0) {
+      cart.splice(targetIdx, 1);
+      // 重新设置引用触发视图更新
+      this.setData({ cart: [...cart] });
+      wx.setStorageSync('cart', cart);
+      app.refreshCart();
+      this.calcTotal();
+      util.showToast('已移除商品');
+      return;
+    }
+
+    // 正常增减
+    const qty = Math.min(newQty, target.stock);
+    const updated = { ...target, qty };
+    cart.splice(targetIdx, 1, updated);
+    this.setData({ cart: [...cart] });
     wx.setStorageSync('cart', cart);
     app.refreshCart();
     this.calcTotal();
-
-    if (removed) {
-      util.showToast('已移除商品');
-    }
   },
 
   calcTotal() {
