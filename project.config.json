@@ -1,6 +1,9 @@
 {
   "description": "云溪微信小程序",
-  "packOptions": { "ignore": [], "include": [] },
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
   "setting": {
     "urlCheck": true,
     "es6": true,
@@ -36,11 +39,12 @@
     "disableUseStrict": false,
     "useCompilerPlugins": false,
     "swc": false,
-    "disableSWC": true
+    "disableSWC": true,
+    "uglifyFileName": false
   },
   "compileType": "miniprogram",
-  "libVersion": "3.5.0",
-  "appid": "wxc9015d2991a6eb62",
+  "libVersion": "3.16.1",
+  "appid": "wxee3d072bb4963862",
   "projectname": "yunxi",
   "condition": {},
   "editorSetting": {
