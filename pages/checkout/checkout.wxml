@@ -1,0 +1,4 @@
+<!-- pages/checkout/checkout.wxml -->
+<view class="page">
+  <text>订单结算</text>
+</view>

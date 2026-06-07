@@ -1,0 +1,2 @@
+/* pages/service/service.wxss */
+.page { padding: 20rpx; }

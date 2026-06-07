@@ -1,0 +1,2 @@
+/* pages/wheel/wheel.wxss */
+.page { padding: 20rpx; }

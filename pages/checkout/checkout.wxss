@@ -1,0 +1,2 @@
+/* pages/checkout/checkout.wxss */
+.page { padding: 20rpx; }

@@ -1,0 +1,4 @@
+<!-- pages/coupon/coupon.wxml -->
+<view class="page">
+  <text>优惠券</text>
+</view>

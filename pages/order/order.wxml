@@ -1,0 +1,4 @@
+<!-- pages/order/order.wxml -->
+<view class="page">
+  <text>商品点单</text>
+</view>

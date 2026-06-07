@@ -1,0 +1,4 @@
+<!-- pages/wheel/wheel.wxml -->
+<view class="page">
+  <text>转盘抽奖</text>
+</view>

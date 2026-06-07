@@ -1,0 +1,4 @@
+<!-- pages/recharge/recharge.wxml -->
+<view class="page">
+  <text>余额充值</text>
+</view>

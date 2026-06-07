@@ -1,0 +1,4 @@
+<!-- pages/service/service.wxml -->
+<view class="page">
+  <text>在线客服</text>
+</view>

@@ -1,0 +1,2 @@
+/* pages/cart/cart.wxss */
+.page { padding: 20rpx; }

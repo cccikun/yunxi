@@ -1,0 +1,2 @@
+/* pages/profile/profile.wxss */
+.page { padding: 20rpx; }

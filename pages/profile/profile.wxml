@@ -1,0 +1,4 @@
+<!-- pages/profile/profile.wxml -->
+<view class="page">
+  <text>个人中心</text>
+</view>

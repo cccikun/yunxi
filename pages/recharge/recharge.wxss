@@ -1,0 +1,2 @@
+/* pages/recharge/recharge.wxss */
+.page { padding: 20rpx; }
