@@ -1,4 +1,84 @@
 <!-- pages/checkout/checkout.wxml -->
 <view class="page">
-  <text>订单结算</text>
+  <!-- 收货地址 -->
+  <view class="section address" bindtap="chooseAddress">
+    <block wx:if="{{address}}">
+      <view class="addr-row">
+        <text class="addr-contact">{{address.name}}  {{address.phone}}</text>
+      </view>
+      <text class="addr-detail">{{address.province}}{{address.city}}{{address.district}} {{address.detail}}</text>
+    </block>
+    <block wx:else>
+      <text class="addr-hint">📍 请选择收货地址</text>
+    </block>
+    <text class="arrow">›</text>
+  </view>
+
+  <!-- 商品清单 -->
+  <view class="section goods">
+    <view class="goods-item" wx:for="{{items}}" wx:key="productId">
+      <image wx:if="{{item.image}}" class="goods-img" src="{{item.image}}" mode="aspectFill"/>
+      <view wx:else class="goods-img-placeholder">☕</view>
+      <view class="goods-info">
+        <text class="goods-name text-ellipsis-2">{{item.name}}</text>
+        <view class="goods-row">
+          <text class="price">{{item.priceDisplay}}</text>
+          <text class="goods-qty">×{{item.qty}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 金额明细 -->
+  <view class="section amount">
+    <view class="amount-row">
+      <text>商品总价</text>
+      <text>¥{{(totalAmount / 100).toFixed(0)}}</text>
+    </view>
+    <view class="amount-row">
+      <text>配送费</text>
+      <text class="free">免配送费</text>
+    </view>
+    <view class="amount-row total">
+      <text>实付金额</text>
+      <text class="price" style="font-size:40rpx;">¥{{(totalAmount / 100).toFixed(0)}}</text>
+    </view>
+  </view>
+
+  <!-- 支付方式 -->
+  <view class="section payment">
+    <view class="section-title">支付方式</view>
+    <view class="pay-option {{payMethod === 'wechat' ? 'selected' : ''}}" bindtap="selectPay" data-method="wechat">
+      <text class="pay-icon">💚</text>
+      <text class="pay-label">微信支付</text>
+      <text class="pay-check">{{payMethod === 'wechat' ? '✓' : ''}}</text>
+    </view>
+    <view class="pay-option {{payMethod === 'balance' ? 'selected' : ''}}" bindtap="selectPay" data-method="balance">
+      <text class="pay-icon">💰</text>
+      <text class="pay-label">余额支付（余额 ¥{{balance}}）</text>
+      <text class="pay-check">{{payMethod === 'balance' ? '✓' : ''}}</text>
+    </view>
+  </view>
+
+  <!-- 底部提交 -->
+  <view class="bottom-bar safe-bottom">
+    <view class="bar-total">
+      <text>实付：</text>
+      <text class="price" style="font-size:40rpx;">¥{{(totalAmount / 100).toFixed(0)}}</text>
+    </view>
+    <button class="btn btn-primary" bindtap="submitOrder" disabled="{{!address}}" loading="{{submitting}}">
+      {{submitting ? '提交中…' : '立即支付'}}
+    </button>
+  </view>
+
+  <!-- 支付弹窗 -->
+  <view class="pay-mask" wx:if="{{showPayModal}}">
+    <view class="pay-modal">
+      <text class="pay-modal-title">确认支付</text>
+      <text class="pay-modal-amount">¥{{(totalAmount / 100).toFixed(0)}}</text>
+      <text class="pay-modal-way">{{payMethod === 'wechat' ? '微信支付' : '余额支付'}}</text>
+      <button class="btn btn-primary btn-block" bindtap="confirmPay">确认支付</button>
+      <text class="pay-modal-cancel" bindtap="cancelPay">取消</text>
+    </view>
+  </view>
 </view>

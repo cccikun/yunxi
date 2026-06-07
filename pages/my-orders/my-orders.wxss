@@ -1,2 +1,29 @@
 /* pages/my-orders/my-orders.wxss */
-.page { padding: 20rpx; }
+.page { padding: 16rpx 20rpx 40rpx; min-height: 100vh; }
+
+.order-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  margin-bottom: 20rpx;
+  overflow: hidden;
+}
+.order-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20rpx 24rpx; border-bottom: 1rpx solid var(--border);
+}
+.order-id { font-size: 24rpx; color: var(--text-muted); }
+.order-status { font-size: 24rpx; color: var(--primary); font-weight: 500; }
+
+.order-goods {
+  display: flex; align-items: center; padding: 12rpx 24rpx;
+  border-bottom: 1rpx solid var(--border); gap: 12rpx;
+}
+.order-goods:last-of-type { border-bottom: none; }
+.order-goods-name { flex: 1; font-size: 26rpx; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.order-goods-qty { font-size: 24rpx; color: var(--text-muted); flex-shrink: 0; }
+.order-goods-price { font-size: 26rpx; flex-shrink: 0; }
+
+.order-footer {
+  display: flex; justify-content: space-between;
+  padding: 16rpx 24rpx; font-size: 24rpx; color: var(--text-muted);
+}

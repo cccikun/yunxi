@@ -1,4 +1,25 @@
 <!-- pages/my-orders/my-orders.wxml -->
 <view class="page">
-  <text>我的订单</text>
+  <block wx:if="{{orders.length > 0}}">
+    <view class="order-card" wx:for="{{orders}}" wx:key="_id">
+      <view class="order-header">
+        <text class="order-id">{{item._id}}</text>
+        <text class="order-status">已支付</text>
+      </view>
+      <view class="order-goods" wx:for="{{item.items}}" wx:for-item="g" wx:key="productId">
+        <text class="order-goods-name">{{g.name}}</text>
+        <text class="order-goods-qty">×{{g.qty}}</text>
+        <text class="order-goods-price">{{g.priceDisplay}}</text>
+      </view>
+      <view class="order-footer">
+        <text>{{util.formatDate(item.createdAt)}}</text>
+        <text>实付 <text class="price">¥{{(item.totalAmount / 100).toFixed(0)}}</text></text>
+      </view>
+    </view>
+  </block>
+  <view wx:else class="empty-state">
+    <text class="empty-icon">📋</text>
+    <text class="empty-text">暂无订单</text>
+    <button class="btn btn-primary" style="margin-top:40rpx;" bindtap="goOrder">去点单</button>
+  </view>
 </view>
