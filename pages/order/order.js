@@ -50,8 +50,16 @@ Page({
       pageSize: 10
     });
 
+    // 预计算显示字段（WXML 不支持方法调用）
+    const enriched = res.list.map(p => ({
+      ...p,
+      priceDisplay: '¥' + (p.price / 100).toFixed(0),
+      origPriceDisplay: p.originalPrice && p.originalPrice > p.price ? '¥' + (p.originalPrice / 100).toFixed(0) : '',
+      salesDisplay: p.sales > 999 ? (p.sales / 1000).toFixed(1) + 'k' : String(p.sales)
+    }));
+
     this.setData({
-      products: this.data.products.concat(res.list),
+      products: this.data.products.concat(enriched),
       hasMore: res.hasMore,
       page: res.page + 1
     });

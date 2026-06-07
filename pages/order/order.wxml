@@ -31,14 +31,14 @@
         <text class="prod-desc text-ellipsis" wx:if="{{item.desc}}">{{item.desc}}</text>
         <view class="prod-bottom">
           <view class="prod-price-row">
-            <text class="price">¥{{(item.price / 100).toFixed(0)}}</text>
-            <text wx:if="{{item.originalPrice && item.originalPrice > item.price}}" class="price-original">¥{{(item.originalPrice / 100).toFixed(0)}}</text>
+            <text class="price">{{item.priceDisplay}}</text>
+            <text wx:if="{{item.originalPrice && item.originalPrice > item.price}}" class="price-original">{{item.origPriceDisplay}}</text>
           </view>
           <view class="add-btn" catchtap="addToCart" data-item="{{item}}">
             <text>＋</text>
           </view>
         </view>
-        <text class="prod-sales" wx:if="{{item.sales}}">月售{{item.sales > 999 ? (item.sales/1000).toFixed(1)+'k' : item.sales}}</text>
+        <text class="prod-sales" wx:if="{{item.sales}}">月售{{item.salesDisplay}}</text>
       </view>
     </view>
 

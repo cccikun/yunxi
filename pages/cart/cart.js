@@ -18,7 +18,8 @@ Page({
     const cart = wx.getStorageSync('cart') || [];
     const enriched = cart.map(item => ({
       ...item,
-      checked: item.checked !== false
+      checked: item.checked !== false,
+      priceDisplay: '¥' + (item.price / 100).toFixed(0)
     }));
     this.setData({ cart: enriched });
     this.calcTotal();
@@ -71,7 +72,12 @@ Page({
       }
     });
 
-    this.setData({ totalAmount, checkedCount, allChecked });
+    this.setData({
+      totalAmount,
+      checkedCount,
+      allChecked,
+      totalAmountDisplay: '¥' + (totalAmount / 100).toFixed(0)
+    });
   },
 
   goCheckout() {
