@@ -19,7 +19,7 @@
             <text class="price">{{item.priceDisplay}}</text>
             <view class="qty-ctrl">
               <view class="qty-btn {{item.qty <= 1 ? 'disabled' : ''}}" bindtap="changeQty" data-id="{{item.productId}}" data-delta="-1">−</view>
-              <text class="qty-val">{{item.qty}}</text>
+              <text class="qty-val">{{item.qty || 0}}</text>
               <view class="qty-btn {{item.qty >= item.stock ? 'disabled' : ''}}" bindtap="changeQty" data-id="{{item.productId}}" data-delta="1">＋</view>
             </view>
           </view>

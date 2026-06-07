@@ -17,14 +17,23 @@ Page({
 
   loadCart() {
     let cart = wx.getStorageSync('cart') || [];
-    // 过滤无效项：数量<=0 的商品直接移除
-    cart = cart.filter(item => item.qty > 0);
+
+    // 过滤+修复无效项
+    cart = cart.filter(item => {
+      if (!item || typeof item !== 'object') return false;
+      if (!item.productId || !item.name) return false;
+      // 修复 null/undefined/NaN 的数量
+      if (item.qty == null || isNaN(item.qty)) item.qty = 1;
+      if (item.price == null || isNaN(item.price)) item.price = 0;
+      if (item.stock == null || isNaN(item.stock)) item.stock = 99;
+      return item.qty > 0;
+    });
     wx.setStorageSync('cart', cart);
 
     const enriched = cart.map(item => ({
       ...item,
       checked: item.checked !== false,
-      priceDisplay: '¥' + (item.price / 100).toFixed(0)
+      priceDisplay: '¥' + ((item.price || 0) / 100).toFixed(0)
     }));
     this.setData({ cart: enriched, isEmpty: enriched.length === 0 });
     this.calcTotal();
@@ -51,38 +60,34 @@ Page({
   changeQty(e) {
     const { id, delta } = e.currentTarget.dataset;
 
-    // 先在原数组上找到目标，修改数量
-    const cart = this.data.cart;
-    const targetIdx = cart.findIndex(item => item.productId === id);
+    // 找到目标商品索引
+    const targetIdx = this.data.cart.findIndex(item => item.productId === id);
     if (targetIdx === -1) return;
 
-    const target = cart[targetIdx];
-    const newQty = target.qty + delta;
+    const target = this.data.cart[targetIdx];
+    const newQty = (target.qty || 0) + delta;
 
-    // 数量归零：直接从数组中 splice 掉，即刻消失
+    // 数量归零：直接过滤掉该项
     if (newQty <= 0) {
-      cart.splice(targetIdx, 1);
+      const cart = this.data.cart.filter(item => item.productId !== id);
       const empty = cart.length === 0;
       this.setData({
-        cart: [...cart],
+        cart,
         isEmpty: empty,
-        allChecked: empty ? false : this.data.allChecked,
-        checkedCount: 0,
-        totalAmount: 0,
-        totalAmountDisplay: '¥0'
+        ...(empty ? { allChecked: false, checkedCount: 0, totalAmount: 0, totalAmountDisplay: '¥0' } : {})
       });
       wx.setStorageSync('cart', cart);
       app.refreshCart();
-      this.calcTotal();
+      if (!empty) this.calcTotal();
       util.showToast('已移除商品');
       return;
     }
 
-    // 正常增减
+    // 正常增减：构建新数组（不修改原数组）
     const qty = Math.min(newQty, target.stock);
-    const updated = { ...target, qty };
-    cart.splice(targetIdx, 1, updated);
-    this.setData({ cart: [...cart] });
+    const cart = [...this.data.cart];
+    cart[targetIdx] = { ...target, qty };
+    this.setData({ cart });
     wx.setStorageSync('cart', cart);
     app.refreshCart();
     this.calcTotal();
