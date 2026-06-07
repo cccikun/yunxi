@@ -31,8 +31,9 @@ Page({
       priceDisplay: '¥' + ((Number(item.price) || 0) / 100).toFixed(0)
     }));
     const totalAmount = items.reduce((s, i) => s + i.price * i.qty, 0);
+    const totalDisplay = (totalAmount / 100).toFixed(0);
     const balance = wx.getStorageSync('balance') || 0;
-    this.setData({ items, totalAmount, balance });
+    this.setData({ items, totalAmount, balance, totalDisplay });
   },
 
   // ── 选择地址 ──

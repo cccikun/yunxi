@@ -16,6 +16,7 @@ Page({
     // 补充显示字段
     const enriched = orders.map(o => ({
       ...o,
+      payDisplay: ((Number(o.totalAmount) || 0) / 100).toFixed(0),
       items: (o.items || []).map(g => ({
         ...g,
         priceDisplay: '¥' + ((Number(g.price) || 0) / 100).toFixed(0)

@@ -33,7 +33,7 @@
   <view class="section amount">
     <view class="amount-row">
       <text>商品总价</text>
-      <text>¥{{(totalAmount / 100).toFixed(0)}}</text>
+      <text>¥{{totalDisplay}}</text>
     </view>
     <view class="amount-row">
       <text>配送费</text>
@@ -41,7 +41,7 @@
     </view>
     <view class="amount-row total">
       <text>实付金额</text>
-      <text class="price" style="font-size:40rpx;">¥{{(totalAmount / 100).toFixed(0)}}</text>
+      <text class="price" style="font-size:40rpx;">¥{{totalDisplay}}</text>
     </view>
   </view>
 
@@ -64,7 +64,7 @@
   <view class="bottom-bar safe-bottom">
     <view class="bar-total">
       <text>实付：</text>
-      <text class="price" style="font-size:40rpx;">¥{{(totalAmount / 100).toFixed(0)}}</text>
+      <text class="price" style="font-size:40rpx;">¥{{totalDisplay}}</text>
     </view>
     <button class="btn btn-primary" bindtap="submitOrder" disabled="{{!address}}" loading="{{submitting}}">
       {{submitting ? '提交中…' : '立即支付'}}
@@ -75,7 +75,7 @@
   <view class="pay-mask" wx:if="{{showPayModal}}">
     <view class="pay-modal">
       <text class="pay-modal-title">确认支付</text>
-      <text class="pay-modal-amount">¥{{(totalAmount / 100).toFixed(0)}}</text>
+      <text class="pay-modal-amount">¥{{totalDisplay}}</text>
       <text class="pay-modal-way">{{payMethod === 'wechat' ? '微信支付' : '余额支付'}}</text>
       <button class="btn btn-primary btn-block" bindtap="confirmPay">确认支付</button>
       <text class="pay-modal-cancel" bindtap="cancelPay">取消</text>

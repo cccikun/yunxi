@@ -13,7 +13,7 @@
       </view>
       <view class="order-footer">
         <text>{{util.formatDate(item.createdAt)}}</text>
-        <text>实付 <text class="price">¥{{(item.totalAmount / 100).toFixed(0)}}</text></text>
+        <text>实付 <text class="price">¥{{item.payDisplay}}</text></text>
       </view>
     </view>
   </block>
