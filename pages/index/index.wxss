@@ -1,2 +1,10 @@
 /* pages/index/index.wxss */
-.page { padding: 20rpx; }
+.page {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.home-image {
+  width: 100%;
+  display: block;
+}

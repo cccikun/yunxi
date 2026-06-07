@@ -1,4 +1,4 @@
 <!-- pages/index/index.wxml -->
 <view class="page">
-  <text>首页</text>
+  <image class="home-image" src="../../zaopian/zhuye.png" mode="widthFix"/>
 </view>
