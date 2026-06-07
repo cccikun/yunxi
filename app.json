@@ -10,7 +10,11 @@
     "pages/coupon/coupon",
     "pages/wheel/wheel",
     "pages/service/service",
-    "pages/my-orders/my-orders"
+    "pages/my-orders/my-orders",
+    "pages/admin-products/admin-products",
+    "pages/admin-orders/admin-orders",
+    "pages/admin-inventory/admin-inventory",
+    "pages/admin-members/admin-members"
   ],
   "window": {
     "backgroundTextStyle": "dark",

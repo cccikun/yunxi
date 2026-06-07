@@ -1,4 +1,77 @@
 <!-- pages/profile/profile.wxml -->
 <view class="page">
-  <text>个人中心</text>
+  <!-- 用户头部 -->
+  <view class="user-header">
+    <image class="avatar" src="{{userInfo.avatar || '/images/default-avatar.png'}}" mode="aspectFill"/>
+    <view class="user-info">
+      <text class="nickname">{{userInfo.nickname || '云溪用户'}}</text>
+      <view class="user-meta">
+        <text class="meta-item">余额 ¥{{balance}}</text>
+        <text class="meta-item">积分 {{points}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-section">
+    <view class="menu-title">常用功能</view>
+    <view class="menu-grid">
+      <view class="menu-item" bindtap="goPage" data-page="my-orders">
+        <text class="menu-icon">📋</text>
+        <text class="menu-text">我的订单</text>
+      </view>
+      <view class="menu-item" bindtap="goPage" data-page="coupon">
+        <text class="menu-icon">🎫</text>
+        <text class="menu-text">优惠券</text>
+      </view>
+      <view class="menu-item" bindtap="goPage" data-page="recharge">
+        <text class="menu-icon">💰</text>
+        <text class="menu-text">余额充值</text>
+      </view>
+      <view class="menu-item" bindtap="goPage" data-page="wheel">
+        <text class="menu-icon">🎰</text>
+        <text class="menu-text">转盘抽奖</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 商家后台 -->
+  <view class="menu-section">
+    <view class="menu-title">
+      <text>🔧 商家后台</text>
+      <text class="menu-subtitle">管理您的门店</text>
+    </view>
+    <view class="admin-grid">
+      <view class="admin-item" bindtap="goAdmin" data-page="products">
+        <text class="admin-icon">📦</text>
+        <text class="admin-label">商品管理</text>
+        <text class="admin-desc">上下架 / 调价 / 图片</text>
+      </view>
+      <view class="admin-item" bindtap="goAdmin" data-page="orders">
+        <text class="admin-icon">📑</text>
+        <text class="admin-label">订单管理</text>
+        <text class="admin-desc">接单 / 发货 / 退款</text>
+      </view>
+      <view class="admin-item disabled" bindtap="goAdmin" data-page="inventory">
+        <text class="admin-icon">📊</text>
+        <text class="admin-label">库存管理</text>
+        <text class="admin-desc">入库 / 出库 / 盘点</text>
+      </view>
+      <view class="admin-item disabled" bindtap="goAdmin" data-page="members">
+        <text class="admin-icon">👥</text>
+        <text class="admin-label">会员管理</text>
+        <text class="admin-desc">积分 / 等级 / 查询</text>
+      </view>
+      <view class="admin-item disabled" bindtap="goAdmin" data-page="stats">
+        <text class="admin-icon">📈</text>
+        <text class="admin-label">经营数据</text>
+        <text class="admin-desc">营收 / 销量 / 趋势</text>
+      </view>
+      <view class="admin-item disabled" bindtap="goAdmin" data-page="settings">
+        <text class="admin-icon">⚙️</text>
+        <text class="admin-label">门店设置</text>
+        <text class="admin-desc">信息 / 公告 / 配置</text>
+      </view>
+    </view>
+  </view>
 </view>

@@ -1,0 +1,64 @@
+<!-- pages/admin-products/admin-products.wxml -->
+<view class="page">
+  <!-- 顶部操作栏 -->
+  <view class="toolbar">
+    <view class="toolbar-search">
+      <input class="search-field" placeholder="搜索商品…" value="{{keyword}}" bindinput="onSearch" confirm-type="search"/>
+    </view>
+    <button class="btn btn-primary btn-sm" bindtap="showAddForm">＋新增</button>
+  </view>
+
+  <!-- 统计条 -->
+  <view class="stats-bar">
+    <text>共 {{totalCount}} 件</text>
+    <text class="stats-div">|</text>
+    <text class="stats-onsale">上架 {{onsaleCount}} 件</text>
+    <text class="stats-div">|</text>
+    <text class="stats-off">下架 {{totalCount - onsaleCount}} 件</text>
+  </view>
+
+  <!-- 商品列表 -->
+  <scroll-view class="product-scroll" scroll-y>
+    <view class="prod-item" wx:for="{{products}}" wx:key="_id">
+      <!-- 图片 -->
+      <view class="prod-img-wrap" bindtap="changeImage" data-id="{{item._id}}">
+        <image wx:if="{{item.image}}" class="prod-img" src="{{item.image}}" mode="aspectFill"/>
+        <view wx:else class="prod-img-empty">
+          <text class="img-empty-icon">📷</text>
+          <text class="img-empty-text">点击上传</text>
+        </view>
+      </view>
+
+      <!-- 信息 -->
+      <view class="prod-body">
+        <view class="prod-row">
+          <text class="prod-name text-ellipsis">{{item.name}}</text>
+          <text class="status-tag {{item.isOnSale ? 'on' : 'off'}}">{{item.isOnSale ? '上架中' : '已下架'}}</text>
+        </view>
+        <view class="prod-row">
+          <text class="prod-cate">{{item.category}}</text>
+          <text class="prod-stock">库存 {{item.stock}}</text>
+          <text class="prod-sales">售 {{item.salesDisplay || 0}}</text>
+        </view>
+        <view class="prod-row price-row">
+          <text class="prod-price">{{item.priceDisplay}}</text>
+          <text wx:if="{{item.origPriceDisplay}}" class="prod-ori-price">{{item.origPriceDisplay}}</text>
+        </view>
+
+        <!-- 操作按钮 -->
+        <view class="prod-actions">
+          <button class="action-btn" bindtap="editPrice" data-id="{{item._id}}" data-price="{{item.price}}">💲调价</button>
+          <button class="action-btn" bindtap="changeImage" data-id="{{item._id}}">🖼️图片</button>
+          <button class="action-btn {{item.isOnSale ? 'warn' : ''}}" bindtap="toggleOnSale" data-id="{{item._id}}">
+            {{item.isOnSale ? '⬇下架' : '⬆上架'}}
+          </button>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{products.length === 0}}" class="empty-state">
+      <text class="empty-icon">📦</text>
+      <text class="empty-text">暂无商品</text>
+    </view>
+  </scroll-view>
+</view>

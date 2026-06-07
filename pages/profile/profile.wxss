@@ -1,2 +1,73 @@
 /* pages/profile/profile.wxss */
-.page { padding: 20rpx; }
+.page { padding-bottom: 40rpx; }
+
+/* ── 用户头部 ── */
+.user-header {
+  display: flex;
+  align-items: center;
+  padding: 48rpx 32rpx;
+  background: linear-gradient(135deg, #07c160, #05a34a);
+  gap: 24rpx;
+}
+.avatar {
+  width: 120rpx; height: 120rpx;
+  border-radius: 50%;
+  border: 4rpx solid rgba(255,255,255,0.4);
+}
+.nickname { font-size: 36rpx; font-weight: 600; color: #fff; display: block; }
+.user-meta { display: flex; gap: 24rpx; margin-top: 8rpx; }
+.meta-item { font-size: 24rpx; color: rgba(255,255,255,0.85); }
+
+/* ── 功能菜单 ── */
+.menu-section {
+  background: var(--white);
+  margin: 20rpx;
+  border-radius: var(--radius-lg);
+  padding: 24rpx;
+}
+.menu-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 20rpx;
+  font-size: 30rpx;
+  font-weight: 600;
+}
+.menu-subtitle { font-size: 24rpx; color: var(--text-muted); font-weight: 400; }
+
+.menu-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+.menu-item {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16rpx 0;
+  gap: 8rpx;
+}
+.menu-icon { font-size: 44rpx; }
+.menu-text { font-size: 24rpx; color: var(--text-secondary); }
+
+/* ── 商家后台 ── */
+.admin-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+.admin-item {
+  width: 33.33%;
+  padding: 20rpx 12rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-radius: var(--radius-md);
+  transition: background 0.2s;
+}
+.admin-item:active { background: var(--bg); }
+.admin-item.disabled { opacity: 0.5; }
+
+.admin-icon { font-size: 48rpx; margin-bottom: 8rpx; }
+.admin-label { font-size: 26rpx; font-weight: 500; display: block; }
+.admin-desc { font-size: 20rpx; color: var(--text-muted); margin-top: 4rpx; }
