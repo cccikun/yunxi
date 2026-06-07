@@ -3,7 +3,7 @@
   <!-- 有商品时 -->
   <block wx:if="{{!isEmpty}}">
     <view class="cart-list">
-      <view class="cart-item" wx:for="{{cart}}" wx:key="productId">
+      <view class="cart-item" wx:for="{{cart}}" wx:key="*this" wx:if="{{item.qty > 0}}">
         <view class="checkbox {{item.checked ? 'checked' : ''}}" bindtap="toggleCheck" data-id="{{item.productId}}">
           <text wx:if="{{item.checked}}">✓</text>
         </view>

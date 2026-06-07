@@ -72,17 +72,22 @@ Page({
     const curQty = Number(target.qty) || 0;
     const newQty = curQty + delta;
 
-    // 数量归零 → 从购物车中移除
+    // 数量归零 → 直接从数组中移除
     if (newQty <= 0) {
-      const cart = this.data.cart.filter(item => item.productId !== id);
+      // 直接用下标切掉（filter 有时不会被 WeChat 检测到变化）
+      const cart = [...this.data.cart];
+      cart.splice(idx, 1);
       const empty = cart.length === 0;
-      this.setData({
-        cart,
-        isEmpty: empty,
-        allChecked: false,
-        checkedCount: 0,
-        totalAmount: 0,
-        totalAmountDisplay: '¥0'
+      // 先置空，再赋值，强制触发视图全量刷新
+      this.setData({ cart: [], isEmpty: true }, () => {
+        this.setData({
+          cart,
+          isEmpty: empty,
+          allChecked: empty ? false : this.data.allChecked,
+          checkedCount: 0,
+          totalAmount: 0,
+          totalAmountDisplay: '¥0'
+        });
       });
       this._save(cart);
       app.refreshCart();
