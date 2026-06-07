@@ -1,4 +1,51 @@
 <!-- pages/order/order.wxml -->
 <view class="page">
-  <text>商品点单</text>
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索饮品、甜品…" value="{{keyword}}"
+           bindinput="onSearchInput" bindconfirm="onSearch" confirm-type="search"/>
+  </view>
+
+  <!-- 分类标签 -->
+  <scroll-view class="category-bar" scroll-x enable-flex>
+    <view class="cate-item {{current === item ? 'active' : ''}}"
+          wx:for="{{categories}}" wx:key="*this"
+          bindtap="switchCategory" data-cate="{{item}}">{{item}}</view>
+  </scroll-view>
+
+  <!-- 商品列表 -->
+  <view class="product-list">
+    <view class="product-card" wx:for="{{products}}" wx:key="_id" bindtap="showDetail" data-id="{{item._id}}">
+      <!-- 商品图片 -->
+      <view class="prod-img-wrap">
+        <image wx:if="{{item.image}}" class="prod-img" src="{{item.image}}" mode="aspectFill"/>
+        <view wx:else class="prod-img-placeholder">
+          <text class="placeholder-icon">{{item.category === '咖啡' ? '☕' : item.category === '茶饮' ? '🍵' : item.category === '果茶' ? '🧃' : item.category === '甜品' ? '🍰' : '🍽️'}}</text>
+        </view>
+        <!-- 推荐标签 -->
+        <view wx:if="{{item.sales > 500}}" class="prod-badge">🔥热销</view>
+      </view>
+      <!-- 商品信息 -->
+      <view class="prod-info">
+        <text class="prod-name text-ellipsis">{{item.name}}</text>
+        <text class="prod-desc text-ellipsis" wx:if="{{item.desc}}">{{item.desc}}</text>
+        <view class="prod-bottom">
+          <view class="prod-price-row">
+            <text class="price">¥{{(item.price / 100).toFixed(0)}}</text>
+            <text wx:if="{{item.originalPrice && item.originalPrice > item.price}}" class="price-original">¥{{(item.originalPrice / 100).toFixed(0)}}</text>
+          </view>
+          <view class="add-btn" catchtap="addToCart" data-item="{{item}}">
+            <text>＋</text>
+          </view>
+        </view>
+        <text class="prod-sales" wx:if="{{item.sales}}">月售{{item.sales > 999 ? (item.sales/1000).toFixed(1)+'k' : item.sales}}</text>
+      </view>
+    </view>
+
+    <!-- 加载状态 -->
+    <view wx:if="{{products.length === 0}}" class="empty-state">
+      <text class="empty-icon">☕</text>
+      <text class="empty-text">暂无商品</text>
+    </view>
+  </view>
 </view>
