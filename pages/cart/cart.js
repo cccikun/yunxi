@@ -15,7 +15,11 @@ Page({
   },
 
   loadCart() {
-    const cart = wx.getStorageSync('cart') || [];
+    let cart = wx.getStorageSync('cart') || [];
+    // 过滤无效项：数量<=0 的商品直接移除
+    cart = cart.filter(item => item.qty > 0);
+    wx.setStorageSync('cart', cart);
+
     const enriched = cart.map(item => ({
       ...item,
       checked: item.checked !== false,
@@ -45,17 +49,32 @@ Page({
 
   changeQty(e) {
     const { id, delta } = e.currentTarget.dataset;
-    const cart = this.data.cart.map(item => {
+    let removed = false;
+
+    const cart = this.data.cart.reduce((arr, item) => {
       if (item.productId === id) {
-        const qty = Math.max(1, Math.min(item.qty + delta, item.stock));
-        return { ...item, qty };
+        const newQty = item.qty + delta;
+        // 数量为0时移除商品
+        if (newQty <= 0) {
+          removed = true;
+          return arr;
+        }
+        const qty = Math.min(newQty, item.stock);
+        arr.push({ ...item, qty });
+      } else {
+        arr.push(item);
       }
-      return item;
-    });
+      return arr;
+    }, []);
+
     this.setData({ cart });
     wx.setStorageSync('cart', cart);
     app.refreshCart();
     this.calcTotal();
+
+    if (removed) {
+      util.showToast('已移除商品');
+    }
   },
 
   calcTotal() {
