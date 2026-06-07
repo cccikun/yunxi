@@ -1,0 +1,9 @@
+<!-- pages/admin-inventory/admin-inventory.wxml -->
+<view class="page">
+  <view class="placeholder">
+    <text class="ph-icon">📊</text>
+    <text class="ph-title">库存管理</text>
+    <text class="ph-desc">入库 / 出库 / 库存盘点</text>
+    <text class="ph-tip">功能开发中…</text>
+  </view>
+</view>

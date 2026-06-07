@@ -1,0 +1,9 @@
+<!-- pages/admin-orders/admin-orders.wxml -->
+<view class="page">
+  <view class="placeholder">
+    <text class="ph-icon">📑</text>
+    <text class="ph-title">订单管理</text>
+    <text class="ph-desc">接单 / 发货 / 退款处理</text>
+    <text class="ph-tip">功能开发中…</text>
+  </view>
+</view>

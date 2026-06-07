@@ -1,0 +1,7 @@
+/* pages/admin-members/admin-members.wxss */
+.page { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+.placeholder { text-align: center; padding: 60rpx; }
+.ph-icon { font-size: 100rpx; display: block; margin-bottom: 24rpx; }
+.ph-title { font-size: 36rpx; font-weight: 600; display: block; margin-bottom: 12rpx; }
+.ph-desc { font-size: 28rpx; color: var(--text-muted); display: block; margin-bottom: 16rpx; }
+.ph-tip { font-size: 24rpx; color: var(--text-muted); padding: 8rpx 24rpx; background: var(--bg); border-radius: 20rpx; }
