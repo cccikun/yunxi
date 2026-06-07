@@ -1,9 +1,9 @@
 <!-- pages/cart/cart.wxml -->
 <view class="page">
-  <block wx:if="{{cart.length > 0}}">
-    <!-- 购物车列表 -->
+  <!-- 有商品时 -->
+  <block wx:if="{{!isEmpty}}">
     <view class="cart-list">
-      <view class="cart-item" wx:for="{{cart}}" wx:key="productId" wx:if="{{item.qty > 0}}">
+      <view class="cart-item" wx:for="{{cart}}" wx:key="productId">
         <view class="checkbox {{item.checked ? 'checked' : ''}}" bindtap="toggleCheck" data-id="{{item.productId}}">
           <text wx:if="{{item.checked}}">✓</text>
         </view>
@@ -27,8 +27,8 @@
       </view>
     </view>
 
-    <!-- 底部结算 -->
-    <view class="bottom-bar safe-bottom">
+    <!-- 底部结算：仅当有选中商品时显示 -->
+    <view class="bottom-bar safe-bottom" wx:if="{{checkedCount > 0}}">
       <view class="bar-left" bindtap="toggleAll">
         <view class="checkbox {{allChecked ? 'checked' : ''}}">
           <text wx:if="{{allChecked}}">✓</text>
@@ -39,12 +39,13 @@
         <text>合计：</text>
         <text class="price" style="font-size: 36rpx;">{{totalAmountDisplay}}</text>
       </view>
-      <button class="btn btn-primary" bindtap="goCheckout" disabled="{{checkedCount === 0}}">
+      <button class="btn btn-primary" bindtap="goCheckout">
         结算({{checkedCount}})
       </button>
     </view>
   </block>
 
+  <!-- 购物车为空 -->
   <view wx:else class="empty-state">
     <text class="empty-icon">🛒</text>
     <text class="empty-text">购物车空空如也</text>

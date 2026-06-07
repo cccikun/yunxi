@@ -5,6 +5,7 @@ const app = getApp();
 Page({
   data: {
     cart: [],
+    isEmpty: true,
     allChecked: true,
     totalAmount: 0,
     checkedCount: 0
@@ -25,7 +26,7 @@ Page({
       checked: item.checked !== false,
       priceDisplay: '¥' + (item.price / 100).toFixed(0)
     }));
-    this.setData({ cart: enriched });
+    this.setData({ cart: enriched, isEmpty: enriched.length === 0 });
     this.calcTotal();
   },
 
@@ -58,11 +59,18 @@ Page({
     const target = cart[targetIdx];
     const newQty = target.qty + delta;
 
-    // 数量归零：直接从数组中 splice 掉，再用 setData 全量刷新
+    // 数量归零：直接从数组中 splice 掉，即刻消失
     if (newQty <= 0) {
       cart.splice(targetIdx, 1);
-      // 重新设置引用触发视图更新
-      this.setData({ cart: [...cart] });
+      const empty = cart.length === 0;
+      this.setData({
+        cart: [...cart],
+        isEmpty: empty,
+        allChecked: empty ? false : this.data.allChecked,
+        checkedCount: 0,
+        totalAmount: 0,
+        totalAmountDisplay: '¥0'
+      });
       wx.setStorageSync('cart', cart);
       app.refreshCart();
       this.calcTotal();
@@ -98,6 +106,7 @@ Page({
       totalAmount,
       checkedCount,
       allChecked,
+      isEmpty: this.data.cart.length === 0,
       totalAmountDisplay: '¥' + (totalAmount / 100).toFixed(0)
     });
   },
