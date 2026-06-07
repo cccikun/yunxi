@@ -1,17 +1,41 @@
-# OS
+# ── 系统隐藏文件 ──
 Thumbs.db
 .DS_Store
 Desktop.ini
+$RECYCLE.BIN/
 
-# Editor
+# ── 编辑器配置 ──
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
+.project
+.settings/
+*.sublime-workspace
+*.sublime-project
 
-# Dependencies
+# ── 依赖 ──
 node_modules/
 
-# Env
+# ── 日志文件 ──
+*.log
+logs/
+*.npm-debug.log*
+*.yarn-debug.log*
+*.yarn-error.log*
+
+# ── 小程序编译目录 ──
+miniprogram_npm/
+
+# ── 环境变量 ──
 .env
 .env.local
+.env.*.local
+
+# ── 云函数（编译产物） ──
+cloudfunctions/**/node_modules/
+
+# ── 打包产物 ──
+dist/
+build/
